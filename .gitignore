@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+**/node_modules/
+Backend/node_modules/
+Frontend/node_modules/
+
+# Environment variables
+.env
+.env.*
+**/.env
+**/.env.*
+Backend/.env
+Backend/.env.*
+Frontend/.env
+Frontend/.env.*
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Uploads (optional - uncomment if you don't want to track uploads)
+# uploads/
+
