@@ -13,6 +13,7 @@ const {
 } = require("../controllers/admin-coach-edit");
 const reviewController = require("../controllers/reviewController");
 const adminOrCoach = require("../middlewares/admin-or-coach-middleware");
+const adminUiAuth = require("../middlewares/admin-ui-auth-middleware");
 const router = express.Router();
 
 router.route('/users/:id').get( getUserByID);
@@ -23,19 +24,19 @@ router.route("/coachs/delete/:id").delete(deleteCoachById);
 
 router
   .route("/coachs/:id")
-  .put(userAuth, adminMiddleware, upload.single("profilePicture"), updateCoachByAdmin);
+  .put(adminUiAuth, adminMiddleware, upload.single("profilePicture"), updateCoachByAdmin);
 
 router
   .route("/coachs/:id/services")
-  .put(userAuth, adminMiddleware, updateServicesByAdmin);
+  .put(adminUiAuth, adminMiddleware, updateServicesByAdmin);
 
 router
   .route("/coachs/:id/feature")
-  .patch(userAuth, adminMiddleware, setFeaturedByAdmin);
+  .patch(adminUiAuth, adminMiddleware, setFeaturedByAdmin);
 
 router
   .route("/sessions/:sessionId")
-  .put(userAuth, adminMiddleware, updateSessionByAdmin);
+  .put(adminUiAuth, adminMiddleware, updateSessionByAdmin);
 
 router.route("/reviews/:reviewId").delete(adminOrCoach, reviewController.deleteReview);
 

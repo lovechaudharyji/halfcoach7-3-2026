@@ -46,6 +46,11 @@ const corsOptions = {
   ],
   methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credentials: true,
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "X-Admin-UI-Password",
+  ],
 };
 
 

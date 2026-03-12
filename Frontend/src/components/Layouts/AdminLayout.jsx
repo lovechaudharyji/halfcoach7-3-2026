@@ -90,7 +90,8 @@ export const AdminLayout = () => {
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    if (password === "Anshul@73859871s") {
+    const adminPass = import.meta.env.VITE_ADMIN_UI_PASSWORD || "";
+    if (password && password === adminPass) {
       setIsAuthenticated(true);
     } else {
       alert("Incorrect password");
@@ -107,7 +108,6 @@ export const AdminLayout = () => {
           <h2 className="text-2xl font-semibold mb-6 text-center">
             🔒 Admin Access
           </h2>
-
           <div className="mb-4">
             <label
               htmlFor="password"
@@ -125,7 +125,6 @@ export const AdminLayout = () => {
               required
             />
           </div>
-
           <button
             type="submit"
             className="w-full py-3 mt-4 bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold rounded-lg shadow-md"

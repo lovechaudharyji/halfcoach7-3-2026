@@ -201,7 +201,8 @@ export const AdminCoachs = () => {
         {
           method: "PUT",
           headers: {
-            Authorization: `Bearer ${token || ""}`,
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            "X-Admin-UI-Password": import.meta.env.VITE_ADMIN_UI_PASSWORD || "",
           },
           body: form,
         }
@@ -238,7 +239,8 @@ export const AdminCoachs = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token || ""}`,
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            "X-Admin-UI-Password": import.meta.env.VITE_ADMIN_UI_PASSWORD || "",
           },
           body: JSON.stringify({ services: servicesEdit }),
         }
@@ -270,7 +272,8 @@ export const AdminCoachs = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token || ""}`,
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            "X-Admin-UI-Password": import.meta.env.VITE_ADMIN_UI_PASSWORD || "",
           },
           body: JSON.stringify({
             coachId: selectedCoach._id,
