@@ -31,11 +31,6 @@ const faqs = [
     answer:
       "Yes, many coaches offer additional resources such as e-books and personalized plans.",
   },
-  {
-    question: "What if I’m not satisfied with a session?",
-    answer:
-      "You can request a refund or switch to another coach if you're not satisfied with a session.",
-  },
 ];
 // over here question and answer
 

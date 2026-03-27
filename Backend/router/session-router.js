@@ -18,6 +18,15 @@ router.post("/create-checkout-session", async (req, res) => {
   } = req.body;
 
   try {
+    const priceNumber = Number(servicePrice);
+    if (!Number.isFinite(priceNumber) || priceNumber <= 0) {
+      return res.status(400).json({ message: "Invalid service price" });
+    }
+    const toPence = Math.round(priceNumber * 100);
+    const okUrl = (u) =>
+      typeof u === "string" && /^https?:\/\//i.test(u) ? u : null;
+    const success = okUrl(successUrl) || process.env.FRONTEND_BASE_URL;
+    const cancel = okUrl(cancelUrl) || process.env.FRONTEND_BASE_URL;
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
@@ -27,15 +36,15 @@ router.post("/create-checkout-session", async (req, res) => {
             product_data: {
               name: `Session: ${serviceDescription}`,
             },
-            unit_amount: servicePrice * 100,
+            unit_amount: toPence,
           },
           quantity: 1,
         },
       ],
       mode: "payment",
       customer_email: userEmail,
-      success_url: successUrl,
-      cancel_url: cancelUrl,
+      success_url: success,
+      cancel_url: cancel,
       metadata: {
         coachId,
         userId,
@@ -47,8 +56,8 @@ router.post("/create-checkout-session", async (req, res) => {
 
     res.json({ url: session.url });
   } catch (err) {
-   console.error("Stripe error:", err);
-    res.status(500).json({ message: "Stripe session creation failed" });
+    console.error("Stripe error:", err);
+    res.status(500).json({ message: err?.message || "Stripe session creation failed" });
   }
 });
 
